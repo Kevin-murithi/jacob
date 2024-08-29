@@ -9,6 +9,7 @@ const session = require('express-session');
 // Load environment variables from .env file
 dotenv.config();
 
+
 // Create an Express application
 const app = express();
 const port = 3000;
@@ -27,10 +28,10 @@ app.use(session({
 
 // Create a MySQL connection using environment variables
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root', // replace with your MySQL username
-    password: '0712400421', // replace with your MySQL password
-    database: 'expense_traker'
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME
 });
 
 // Connect to the MySQL database
