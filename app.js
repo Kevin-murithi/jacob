@@ -223,7 +223,7 @@ app.get('/home', (req, res) => {
 
 // Serve the index page (GET /)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/trial.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // Serve static files from the 'public' directory
