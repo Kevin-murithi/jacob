@@ -39,35 +39,35 @@ Testing Backend API Endpoints using Postman:
 
         Step 1: Visit the https://www.postman.com/ website using any web browser. 
 
-![alt text](1.png)
+![alt text](images/1.png)
 
         Step 2: Click on Windows Button to download.
 
-![alt text](2.png)    
+![alt text](images/2.png)    
 
         Step 3: Now click on Windows 64 – bit button.
 
-![alt text](3.png)
+![alt text](images/3.png)
 
         Step 4: Now check for the executable file in downloads in your system and run it.
         
-![alt text](4.png)
+![alt text](images/4.png)
 
         Step 5: Now installing process will start it takes a minute to install in the system.
 
-![alt text](5.png)
+![alt text](images/5.png)
 
         Step 6: After installing the program the software opens automatically. Now you can see the interface of the software.
 
-![alt text](6.png)
+![alt text](images/6.png)
 
         Postman is successfully installed on the system and an icon is created on the desktop.
 
-![alt text](7.png)
+![alt text](images/7.png)
 
 Create collections and requests in Postman to test various API endpoints of your expense tracking application
 
-![alt text](<Screenshot 2024-08-29 154123.png>)
+![alt text](<images/Screenshot 2024-08-29 154123.png>)
 
 Test CRUD operations, authentication, and error handling functionalities of the backend API.
 
@@ -75,12 +75,12 @@ Test CRUD operations, authentication, and error handling functionalities of the 
     Inorder to test CREATE operation we will attempt to add a new expense to the expenses table in the expense tracker database
     we will use the POST request for this
 
-![alt text](<Screenshot 2024-08-29 154532.png>)
+![alt text](<images/Screenshot 2024-08-29 154532.png>)
     
     READ
     For READ operation we will try to view all existing expenses in the expense table of the expense tracker database. Here we will use the GET request
 
-![alt text](<Screenshot 2024-08-29 154814.png>)
+![alt text](<images/Screenshot 2024-08-29 154814.png>)
 
     UPDATE
     Inorder to test the UPDATE operation we will attempt to change the details of an existing user. We will use PUT request to fulfil this

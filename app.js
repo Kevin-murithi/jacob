@@ -28,10 +28,10 @@ app.use(session({
 
 // Create a MySQL connection using environment variables
 const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
+    host: 'localhost',
+    user: 'root',
+    password: '0712400421',
+    database: 'expense_traker'
 });
 
 // Connect to the MySQL database
@@ -223,7 +223,7 @@ app.get('/home', (req, res) => {
 
 // Serve the index page (GET /)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'public/trial.html'));
 });
 
 // Serve static files from the 'public' directory
