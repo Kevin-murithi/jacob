@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     try {
         // Send a POST request to the login endpoint
-        const response = await fetch('/login', { // Correct endpoint for login
+        const response = await fetch('/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,12 +31,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         // Parse the response
         const result = await response.json();
 
-        if (result.success) {
+        if (response.ok && result.success) {
             // Redirect to the home page on successful login
-            window.location.href = '/home'; // Redirect to home page
+            window.location.href = '/home'; // Replace '/home' with the actual home page URL
         } else {
             // Show error message on failed login
-            alert(result.message || 'Login failed. Please try again.');
+            alert(result.message || 'Login failed. Please check your credentials and try again.');
         }
     } catch (error) {
         console.error('Error:', error);

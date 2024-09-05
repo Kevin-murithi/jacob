@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Assume that the user ID is stored in a session or obtained after login
-    const user_id = 1; // Replace with the actual user ID
-
     // Function to fetch balance, income, and expenses
     async function fetchData() {
         try {
-            // Fetch expenses with user_id
-            const expensesResponse = await fetch(`http://localhost:3000/api/expenses/view/${user_id}`);
+            // Fetch expenses for the logged-in user
+            const expensesResponse = await fetch(`http://localhost:3000/api/expenses/view`);
             const expenses = await expensesResponse.json();
 
             // Calculate total balance, income, and expense
@@ -57,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: name,
             amount: amount,
             date: date,
-            category: category,
-            user_id: user_id // Add the user ID to the transaction
+            category: category
         };
 
         try {
