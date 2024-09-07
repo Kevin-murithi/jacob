@@ -12,7 +12,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const data = new URLSearchParams(formData).toString();
 
     try {
-        const response = await fetch('/register', {
+        const response = await fetch('/api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -22,7 +22,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
         if (response.ok) {
             alert('Registration successful! Please log in.');
-            window.location.href = '/login'; // Correct redirection to login page
+            window.location.href = '/api/users/login'; // Correct redirection to login page
         } else {
             const errorText = await response.text();
             alert('Registration failed: ' + errorText);

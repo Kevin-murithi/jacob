@@ -24,10 +24,12 @@ app.use(session({
 }));
 
 // Create a MySQL connection using environment variables
-const urlDB = 'mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}/${process.env.MYSQLDATABASE}'
-
 const db = mysql.createConnection({
-   urlDB
+   host:process.env.MYSQLHOST,
+   user:process.env.MYSQLUSER,
+   password:process.env.MYSQLPASSWORD,
+   database:process.env.MYSQLDATABASE,
+   port:process.env.MYSQLPORT
 });
 
 // Connect to the MySQL database
@@ -80,7 +82,7 @@ db.query(createExpensesTable, (err) => {
 
 
 // Handle user registration (POST /register)
-app.post('/register', async (req, res) => {
+app.post('/api/users/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -111,7 +113,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Handle user login (POST /login)
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
     const { username, password } = req.body;
 
     const sql = 'SELECT * FROM users WHERE username = ?';
