@@ -8,7 +8,7 @@ const session = require('express-session');
 
 // Create an Express application
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware to parse URL-encoded and JSON request bodies
 app.use(express.urlencoded({ extended: false }));
