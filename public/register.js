@@ -15,7 +15,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     try {
         // Send a POST request to the registration endpoint
-        const response = await fetch('/register', {
+        const response = await fetch('https://jacob-production.up.railway.app/api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -26,7 +26,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         if (response.ok) {
             // Registration successful, redirect to login page
             alert('Registration successful! Please log in.');
-            window.location.href = '/login'; // Correct redirection to login page
+            window.location.href = 'login.html'; // Correct redirection to login page
         } else {
             // Handle failed registration
             const errorText = await response.text();
