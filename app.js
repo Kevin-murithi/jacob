@@ -115,7 +115,7 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 // Handle user login (POST /api/users/login)
-app.post('/api/users/login', (req, res) => {
+app.post('https://jacob-production.up.railway.app/login', (req, res) => {
     res.json({ success: true, message: 'Test successful' });
 });
 
