@@ -5,6 +5,7 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 require('dotenv').config(); 
 const session = require('express-session');
+const cors = require('cors');
 
 // Create an Express application
 const app = express();
@@ -24,7 +25,13 @@ app.use(session({
 }));
 
 // Create a MySQL connection using environment variables
-const db = mysql.createConnection(process.env.MYSQLURL);
+const db = mysql.createConnection({
+   host: process.env.MYSQLHOST,
+   user: process.env.MYSQLUSER,
+   password: process.env.MYSQLPASSWORD,
+   database: process.env.MYSQLDATABASE,
+   port: process.env.MYSQLPORT
+});
 
 // Connect to the MySQL database
 db.connect((err) => {
