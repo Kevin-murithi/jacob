@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchData() {
         try {
             // Fetch expenses for the logged-in user
-            const expensesResponse = await fetch(`http://localhost:3000/api/expenses/view`);
+            const expensesResponse = await fetch(`http://junction.proxy.rlwy.net:54417/api/expenses/view`);
             const expenses = await expensesResponse.json();
 
             // Calculate total balance, income, and expense
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/expenses/add', {
+            const response = await fetch('http://junction.proxy.rlwy.net:54417/api/expenses/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
