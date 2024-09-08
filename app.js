@@ -24,12 +24,9 @@ app.use(session({
 }));
 
 // Create a MySQL connection using environment variables
+const urlDB = 'mysql://root:WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC@junction.proxy.rlwy.net:54417/railway'
 const db = mysql.createConnection({
-   host:process.env.MYSQLHOST,
-   user:process.env.MYSQLUSER,
-   password:process.env.MYSQLPASSWORD,
-   database:process.env.MYSQLDATABASE,
-   port:process.env.MYSQLPORT
+   urlDB
 });
 
 // Connect to the MySQL database
