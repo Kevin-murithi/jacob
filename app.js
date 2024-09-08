@@ -85,7 +85,7 @@ db.query(createExpensesTable, (err) => {
 });
 
 // Handle user registration (POST /api/users/register)
-app.post('/api/users/register', async (req, res) => {
+app.post('/api/Users/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -127,7 +127,7 @@ app.post('/api/users/login', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Username and password are required' });
         }
 
-        const sql = 'SELECT * FROM users WHERE username = ?';
+        const sql = 'SELECT * FROM Users WHERE username = ?';
         db.query(sql, [username], async (err, results) => {
             if (err) {
                 console.error("Error fetching user:", err);
