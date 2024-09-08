@@ -105,6 +105,8 @@ app.post('/api/users/register', async (req, res) => {
         db.query(sql, values, (err, results) => {
             if (err) {
                 console.log("Error inserting user into the database:", err.message);
+                // Log the entire error object for more details
+                console.error(err);
                 return res.status(500).send('Error registering user');
             }
             res.redirect('login.html');
@@ -115,6 +117,7 @@ app.post('/api/users/register', async (req, res) => {
     }
 });
 
+
 // Handle user login (POST /api/users/login)
 app.post('/api/users/login', async (req, res) => {
     try {
@@ -124,7 +127,7 @@ app.post('/api/users/login', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Username and password are required' });
         }
 
-        const sql = 'SELECT * FROM Users WHERE username = ?';
+        const sql = 'SELECT * FROM users WHERE username = ?';
         db.query(sql, [username], async (err, results) => {
             if (err) {
                 console.error("Error fetching user:", err);
