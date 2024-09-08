@@ -187,6 +187,17 @@ app.get('/home', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/trial.html'));
 });
 
+app.get('/api/test/connectivity', (req, res) => {
+    db.query('SELECT 1', (err, results) => {
+        if (err) {
+            console.error('Database connection error:', err.message);
+            return res.status(500).json({ success: false, message: 'Database connection failed' });
+        }
+        res.json({ success: true, message: 'Database connection successful' });
+    });
+});
+
+
 // Route to view expenses by user ID (GET /api/expenses/view)
 app.get('/api/expenses/view', isAuthenticated, (req, res) => {
     const user_id = req.session.user_id;
