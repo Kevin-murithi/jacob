@@ -115,31 +115,38 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 // Handle user login (POST /api/users/login)
-// Example of introducing an error in a database query
-app.post('/api/users/login', (req, res) => {
-    const { username, password } = req.body;
+app.post('/api/users/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
 
-    // Introduce a syntax error in the SQL query
-    const sql = 'SELECT * FROM non_existent_table WHERE username = ?'; // Incorrect table name
-
-    db.query(sql, [username], async (err, results) => {
-        if (err) {
-            console.log("Error fetching users", err.message);
-            res.status(500).json({ success: false, message: "Internal Server Error" });
-        } else if (results.length > 0) {
-            const match = await bcrypt.compare(password, results[0].password);
-            if (match) {
-                req.session.user_id = results[0].user_id;
-                res.json({ success: true });
-            } else {
-                res.json({ success: false, message: "Invalid Username or Password!" });
-            }
-        } else {
-            res.json({ success: false, message: "Invalid Username or Password!" });
+        if (!username || !password) {
+            return res.status(400).json({ success: false, message: 'Username and password are required' });
         }
-    });
-});
 
+        const sql = 'SELECT * FROM Users WHERE username = ?';
+        db.query(sql, [username], async (err, results) => {
+            if (err) {
+                console.error("Error fetching user:", err);
+                return res.status(500).json({ success: false, message: 'Internal Server Error' });
+            }
+
+            if (results.length > 0) {
+                const match = await bcrypt.compare(password, results[0].password);
+                if (match) {
+                    req.session.user_id = results[0].user_id;
+                    res.json({ success: true });
+                } else {
+                    res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
+                }
+            } else {
+                res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
+            }
+        });
+    } catch (error) {
+        console.error("Error during login:", error.message);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+});
 
 
 
