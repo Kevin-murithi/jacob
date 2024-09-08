@@ -115,32 +115,8 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 // Handle user login (POST /api/users/login)
-app.post('/api/users/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const sql = 'SELECT * FROM users WHERE username = ?';
-        db.query(sql, [username], async (err, results) => {
-            if (err) {
-                console.error("Error fetching users:", err);
-                return res.status(500).json({ error: 'Internal Server Error' });
-            }
-
-            if (results.length > 0) {
-                const match = await bcrypt.compare(password, results[0].password);
-                if (match) {
-                    req.session.user_id = results[0].user_id;
-                    res.json({ success: true });
-                } else {
-                    res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
-                }
-            } else {
-                res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
-            }
-        });
-    } catch (error) {
-        console.error("Error during login:", error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+app.post('/api/users/login', (req, res) => {
+    res.json({ success: true, message: 'Test successful' });
 });
 
 
