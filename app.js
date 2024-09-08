@@ -82,7 +82,7 @@ db.query(createExpensesTable, (err) => {
 
 
 // Handle user registration (POST /register)
-app.post('https://jacob-production.up.railway.app/api/users/register', async (req, res) => {
+app.post('https://jacob-production.up.railway.app/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -113,7 +113,7 @@ app.post('https://jacob-production.up.railway.app/api/users/register', async (re
 });
 
 // Handle user login (POST /login)
-app.post('https://jacob-production.up.railway.app/api/users/login', (req, res) => {
+app.post('https://jacob-production.up.railway.app/login', (req, res) => {
     const { username, password } = req.body;
 
     const sql = 'SELECT * FROM users WHERE username = ?';
