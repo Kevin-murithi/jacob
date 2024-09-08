@@ -197,6 +197,18 @@ app.get('/api/test/connectivity', (req, res) => {
     });
 });
 
+app.get('/api/test/count', (req, res) => {
+    const sql = 'SELECT COUNT(*) AS total FROM TestTable';
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error counting records:', err.message);
+            return res.status(500).json({ success: false, message: 'Internal Server Error' });
+        }
+        res.json({ success: true, totalRecords: results[0].total });
+    });
+});
+
 
 // Route to view expenses by user ID (GET /api/expenses/view)
 app.get('/api/expenses/view', isAuthenticated, (req, res) => {
