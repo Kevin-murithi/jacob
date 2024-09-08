@@ -115,9 +115,39 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 // Handle user login (POST /api/users/login)
-app.post('/api/users/login', (req, res) => {
-    res.json({ success: true, message: 'Test successful' });
+app.post('/api/users/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ success: false, message: 'Username and password are required' });
+        }
+
+        const sql = 'SELECT * FROM users WHERE username = ?';
+        db.query(sql, [username], async (err, results) => {
+            if (err) {
+                console.error("Error fetching user:", err);
+                return res.status(500).json({ success: false, message: 'Internal Server Error' });
+            }
+
+            if (results.length > 0) {
+                const match = await bcrypt.compare(password, results[0].password);
+                if (match) {
+                    req.session.user_id = results[0].user_id;
+                    res.json({ success: true });
+                } else {
+                    res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
+                }
+            } else {
+                res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
+            }
+        });
+    } catch (error) {
+        console.error("Error during login:", error.message);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
 });
+
 
 
 // Middleware to check if user is logged in
