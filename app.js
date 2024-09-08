@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
-    origin: 'https://trialproject-wine.vercel.app', // Your frontend URL
+    origin: 'https://jacob.railway.internal.app', // Your frontend URL
     methods: ['GET', 'POST'],
     credentials: true
 }));

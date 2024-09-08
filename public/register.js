@@ -15,7 +15,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     try {
         // Send a POST request to the registration endpoint
-        const response = await fetch('https://jacob-production.up.railway.app/register', {  // Corrected URL path
+        const response = await fetch('https://jacob.railway.internal/register', {  // Corrected URL path
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
