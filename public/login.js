@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     try {
         // Send a POST request to the login endpoint
-        const response = await fetch('https://jacob-production.up.railway.app/api/users/login', {
+        const response = await fetch('https://jacob-production.up.railway.app/login', {  // Corrected URL path
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if (response.ok && result.success) {
             // Redirect to the home page on successful login
-            window.location.href = '/home'; // Replace '/home' with the actual home page URL
+            window.location.href = '/home'; 
         } else {
             // Show error message on failed login
             alert(result.message || 'Login failed. Please check your credentials and try again.');

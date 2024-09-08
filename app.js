@@ -25,11 +25,11 @@ app.use(session({
 
 // Create a MySQL connection using environment variables
 const db = mysql.createConnection({
-   host:process.env.MYSQLHOST,
-   user:process.env.MYSQLUSER,
-   password:process.env.MYSQLPASSWORD,
-   database:process.env.MYSQLDATABASE,
-   port:process.env.MYSQLPORT
+   host: process.env.MYSQLHOST,
+   user: process.env.MYSQLUSER,
+   password: process.env.MYSQLPASSWORD,
+   database: process.env.MYSQLDATABASE,
+   port: process.env.MYSQLPORT
 });
 
 // Connect to the MySQL database
@@ -41,9 +41,7 @@ db.connect((err) => {
     }
 });
 
-// Function to create 'users' and 'expenses' tables
-
-// Create the 'users' table if it does not already exist
+// Create 'users' and 'expenses' tables if they don't exist
 const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +58,6 @@ db.query(createUsersTable, (err) => {
     }
 });
 
-// Create the 'expenses' table if it does not already exist
 const createExpensesTable = `
     CREATE TABLE IF NOT EXISTS expenses (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,9 +77,8 @@ db.query(createExpensesTable, (err) => {
     }
 });
 
-
-// Handle user registration (POST /register)
-app.post('https://jacob-production.up.railway.app/register', async (req, res) => {
+// Handle user registration (POST /api/users/register)
+app.post('/api/users/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -112,8 +108,8 @@ app.post('https://jacob-production.up.railway.app/register', async (req, res) =>
     }
 });
 
-// Handle user login (POST /login)
-app.post('https://jacob-production.up.railway.app/login', (req, res) => {
+// Handle user login (POST /api/users/login)
+app.post('/api/users/login', (req, res) => {
     const { username, password } = req.body;
 
     const sql = 'SELECT * FROM users WHERE username = ?';
@@ -145,10 +141,10 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-// Route to add an expense with user ID (POST /api/expenses/add)
+// Route to add an expense (POST /api/expenses/add)
 app.post('/api/expenses/add', isAuthenticated, (req, res) => {
     const { name, amount, date, category } = req.body;
-    const user_id = req.session.user_id; // Use user ID from session
+    const user_id = req.session.user_id;
 
     if (!name || !amount || !date || !category) {
         return res.status(400).send('All fields are required');
@@ -165,17 +161,13 @@ app.post('/api/expenses/add', isAuthenticated, (req, res) => {
 });
 
 // Serve the home page if the user is authenticated (GET /home)
-app.get('/home', (req, res) => {
-    if (req.session.user_id) {
-        res.sendFile(path.join(__dirname, 'public/trial.html'));
-    } else {
-        res.status(401).send("Cannot access this page without logging in!");
-    }
+app.get('/home', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/trial.html'));
 });
 
 // Route to view expenses by user ID (GET /api/expenses/view)
 app.get('/api/expenses/view', isAuthenticated, (req, res) => {
-    const user_id = req.session.user_id; // Use user ID from session
+    const user_id = req.session.user_id;
 
     const query = 'SELECT * FROM expenses WHERE user_id = ?';
     db.query(query, [user_id], (err, results) => {
