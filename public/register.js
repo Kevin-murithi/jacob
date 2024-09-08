@@ -15,12 +15,12 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     try {
         // Send a POST request to the registration endpoint
-        const response = await fetch('https://jacob-production.up.railway.app/api/Users/register', {
+        const response = await fetch('https://jacob-production.up.railway.app/register', {  // Corrected URL path
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: data
+            body: JSON.stringify(data)
         });
 
         if (response.ok) {

@@ -85,7 +85,7 @@ db.query(createExpensesTable, (err) => {
 });
 
 // Handle user registration (POST /api/users/register)
-app.post('/api/Users/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -119,7 +119,7 @@ app.post('/api/Users/register', async (req, res) => {
 
 
 // Handle user login (POST /api/users/login)
-app.post('/api/users/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
 
