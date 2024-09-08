@@ -14,6 +14,11 @@ const port = process.env.PORT || 3000;
 // Middleware to parse URL-encoded and JSON request bodies
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors({
+    origin: 'https://trialproject-wine.vercel.app', // Your frontend URL
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
 
 // Configure session middleware
 app.use(session({
