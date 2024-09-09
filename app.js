@@ -1,6 +1,7 @@
 // Import necessary modules
 const express = require('express'); 
 const mysql = require('mysql2');
+import mysql from mysql2;
 const path = require('path');
 const bcrypt = require('bcryptjs');
 require('dotenv').config(); 
@@ -30,13 +31,9 @@ app.use(session({
 }));
 
 // Create a MySQL connection using environment variables
-const db = mysql.createConnection({
-   host: process.env.MYSQLHOST,
-   user: process.env.MYSQLUSER,
-   password: process.env.MYSQLPASSWORD,
-   database: process.env.MYSQLDATABASE,
-   port: process.env.MYSQLPORT
-});
+const db = mysql.createConnection(
+    'mysql:root:WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC@junction.proxy.rlwy.net:54417/railway'
+);
 
 // Connect to the MySQL database
 db.connect((err) => {
