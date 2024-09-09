@@ -1,7 +1,6 @@
 // Import necessary modules
 const express = require('express'); 
 const mysql = require('mysql2');
-import mysql from mysql2;
 const path = require('path');
 const bcrypt = require('bcryptjs');
 require('dotenv').config(); 
