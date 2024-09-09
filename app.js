@@ -30,8 +30,9 @@ app.use(session({
 }));
 
 // Create a MySQL connection using environment variables
+const urlDB = "mysql:root:WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC@junction.proxy.rlwy.net:54417/railway"
 const db = mysql.createConnection(
-    'mysql:root:WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC@junction.proxy.rlwy.net:54417/railway'
+    urlDB
 );
 
 // Connect to the MySQL database
