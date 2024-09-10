@@ -47,7 +47,7 @@ const db = pool.promise(); // Use promise-based queries
 // Function to initialize database tables
 async function initializeDatabase() {
     const createUsersTable = `
-        CREATE TABLE IF NOT EXISTS trial (
+        CREATE TABLE IF NOT EXISTS Users (
             user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             username VARCHAR(100) NULL,
             password VARCHAR(100) NULL,
