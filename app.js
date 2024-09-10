@@ -35,7 +35,14 @@ const db = mysql.createConnection({
     user: 'root',
     password: 'WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC',
     port: 54417,
-    database: 'railway'
+    database: 'railway',
+
+    // Optional settings for keeping the connection alive
+  connectTimeout: 10000, // Set a timeout for initial connection
+  acquireTimeout: 10000, // Set a timeout for acquiring a connection from the pool
+  waitForConnections: true, // Wait for connections instead of throwing an error
+  connectionLimit: 10, // Number of maximum simultaneous connections
+  queueLimit: 0 // Unlimited queue
   });
   
 
@@ -47,6 +54,44 @@ db.connect((err) => {
         console.log("Database connected successfully!");
     }
 });
+
+const pool = mysql.createPool({
+    host: 'junction.proxy.rlwy.net',
+    user: 'root',
+    password: 'WpdpvMdmHMNRJMZxAuFyniZBwdNYaJmC',
+    database: 'railway',
+
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  });
+  
+  // To execute a query
+  pool.query('SELECT * FROM your_table', (error, results) => {
+    if (error) throw error;
+    console.log(results);
+  });
+
+  function handleDisconnect() {
+    connection.connect((err) => {
+      if (err) {
+        console.error('Error connecting to the database:', err);
+        setTimeout(handleDisconnect, 2000); // Try to reconnect after 2 seconds
+      } else {
+        console.log('Connected to the database.');
+      }
+    });
+  }
+  
+  connection.on('error', (err) => {
+    console.error('Database error:', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect(); // Reconnect on disconnect
+    } else {
+      throw err;
+    }
+  });
+  
 
 // Create 'users' and 'expenses' tables if they don't exist
 const createUsersTable = `
@@ -152,8 +197,6 @@ app.post('/api/users/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 });
-
-
 
 // Middleware to check if user is logged in
 function isAuthenticated(req, res, next) {
