@@ -3,18 +3,18 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent default form submission
 
     // Get form input values
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     // Validate form inputs
-    if (!username || !password) {
+    if (! email || !password) {
         alert('Please fill in all fields.');
         return;
     }
 
     // Prepare the data for submission
     const data = {
-        username,
+        email,
         password
     };
 
