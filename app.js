@@ -111,14 +111,14 @@ app.post('/register', async (req, res) => {
 // Handle user login (POST /api/users/login)
 app.post('/api/users/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
-        if (!username || !password) {
+        if (!email || !password) {
             return res.status(400).json({ success: false, message: 'Username and password are required' });
         }
 
-        const sql = 'SELECT * FROM Users WHERE username = ?';
-        const [results] = await db.query(sql, [username]);
+        const sql = 'SELECT * FROM Users WHERE email = ?';
+        const [results] = await db.query(sql, [email]);
 
         if (results.length > 0) {
             const match = await bcrypt.compare(password, results[0].password);
